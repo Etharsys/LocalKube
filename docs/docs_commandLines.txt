@@ -1,0 +1,30 @@
+create an app with spring    : https://start.spring.io/
+build with maven             : mvn spring-boot:run -Drun.jvmArguments="-Xlint:all"
+build a docker app           : (sudo) docker build -t springio/gs-spring-boot-docker .
+exec a docker app            : (sudo) docker run -p 8080:8080 springio/gs-spring-boot-docker
+
+create an image with docker  : https://spring.io/guides/gs/spring-boot-docker/
+
+request host on app          : http://localhost:8080/app/hello
+request command              : curl ...
+
+online Jib version :
+Jib.from("openjdk:15") //Online start version
+			.addLayer(Arrays.asList(Paths.get("../" + app.getNameApp() + ".jar")), AbsoluteUnixPath.get("/"))
+			.setEntrypoint("java", "-jar", "-Dserver.port=" + app.getPort(), "../" + app.getNameApp() + ".jar")
+			.containerize(Containerizer.to(RegistryImage.named("docker.io/tredonmportefa/local-kube:" + app.getDockerInstance())
+					.addCredential("tredonmportefa", "4wievou5Yx")));
+
+Available Request :
+GET localhost:8080/app/list
+POST localhost:8080/app/start (with body like : {"app": "helloworld:9001"})
+POST localhost:8080/app/stop (with body like : {"id": 2})
+POST localhost:8080/app/stopall
+POST localhost:8080/app/kill (with body like : {"id": 2})
+POST localhost:8080/app/killall
+GET localhost:8080/logs/{minutes}
+
+Nouveau build                 : mvn clean install -DskipTests -DotherOutputDir -Drun.jvmArguments="-Xlint:all" &&
+                                mv target/local-kube-0.0.1-SNAPSHOT.jar ../../local-kube.jar
+
+Utiliser le programme         : java -jar --enable-preview local-kube.jar

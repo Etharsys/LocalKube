@@ -1,0 +1,59 @@
+/** Roadmap of the Java project - Maxime PORTEFAIX & Tom REDON - M1 IT 2020-2021 **/
+
+General purpose : An application deploying and controlling apps in Java inside Docker containers.
+
+LocalKube : - A serv app (Control apps with REST and discussion between localKube and the apps) => local-kube
+		      	- A client app => local-kube-api
+
+Need to : - Deploy and maintain an app in a Docker container, creating it.
+		      - Being able to create Docker containers instances for a same app, and being able to destroy them.
+		      - Detect the bugs and destroy the instances that are not working anymore.
+		   		- Make a logs view for each app
+		  		- Auto-scaled the number of Dockers instances (To keep a constant number of instances).
+
+Libraries : - Spring Boot - Server part and REST implementation
+			      - API REST - HTTP Client part
+			      - Jackson - Serialization/Deserialization
+						- jib core - Create Docker image
+						- java.lang.ProcessBuilder.html - Execute Docker commands
+						- SQLite and jdbi - Logs
+						- Maven - Build tool
+						- IntelliJ - IDE
+						- Postman - Test REST services or other clients able to do REST queries.
+						- JUnit - Unary test java
+
+Security : - No HTTP
+		       - URL and JSON entries must be sure to avoid code injection
+		   		 - Docker containers must not be root
+		   	   - SQLite password and Username must not be in the code
+
+Available commands in kube : - POST /app/start          : docker app start
+		 					 - GET /app/list            : docker app list
+							 - POST /app/stop           : docker app stop
+							 - GET /logs/:time/:filter  : logs view with a filter
+							 - POST /auto-scale/update  : auto-scale on || update
+							 - POST /auto-scale/status  : auto-scale infos
+							 - POST /auto-scale/stop    : auto-scale off
+
+repositories : - apps
+			   			 - docker-images
+			   	 		 - logs
+			   			 - lib
+
+To do : - no warning with : javac -Xlint:all.
+		    - in a module, no export packages and carreful with require transitive
+		    - no raw types
+		    - need to justify @SuppressWarning and cast
+		    - encapsulation !
+		    - fields and methods can't be protected
+		    - polymorphism !
+		    - interface !
+		    - abstract class : not public and cant't be use like a type
+ 		    - no dead code (each method need to be use)
+		    - METHOD ---> LESS THAN 10 LINES (or need to be justified)
+		    - NO GLOBAL ! (but primitive constants are authorized)
+		    - POM.xml : dont contains dependencies which are unlist in the subect file or having an other version as ask
+
+
+WARNING :
+JIBCORE CAN BE USED AS A PLUGIN OR A DEPEDENCY.
